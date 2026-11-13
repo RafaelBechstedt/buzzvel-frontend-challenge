@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# private (challenge brief, figma cache)
+private/
+
+# local env files
+.env*.local
