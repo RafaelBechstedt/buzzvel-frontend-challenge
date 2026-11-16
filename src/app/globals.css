@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* Font families come from next/font (CSS variables set on <html> in layout.tsx). */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  /* Colors — only the design palette exists. Figma names in docs/decisions.md. */
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-ink: #171b2c;
+  --color-ink-secondary: #656770;
+  --color-ink-tertiary: #6d7384;
+  --color-navy: #171b2c;
+  --color-on-dark-secondary: #e7e7ec;
+  --color-on-dark-tertiary: #9e9faa;
+  --color-primary: #3157f6;
+  --color-primary-light: #e2e8ff;
+  --color-orange: #ff704d;
+  --color-orange-light: #ffcb9f;
+  --color-yellow: #ffee7e;
+  --color-yellow-light: #fff1c2;
+  --color-cream: #f9f8f3;
+  --color-line: #dbdfeb;
+
+  /* Text styles — base is the mobile value, `-desktop` is applied at `lg`. */
+  --text-h1: 2.5rem;
+  --text-h1--line-height: 2.75rem;
+  --text-h1--letter-spacing: -0.0625rem;
+  --text-h1--font-weight: 800;
+  --text-h1-desktop: 4rem;
+  --text-h1-desktop--line-height: 4.375rem;
+  --text-h1-desktop--letter-spacing: -0.1rem;
+  --text-h1-desktop--font-weight: 800;
+
+  --text-h2: 2.25rem;
+  --text-h2--line-height: 2.5rem;
+  --text-h2--letter-spacing: -0.05625rem;
+  --text-h2--font-weight: 800;
+  --text-h2-desktop: 3.5rem;
+  --text-h2-desktop--line-height: 4rem;
+  --text-h2-desktop--letter-spacing: -0.0875rem;
+  --text-h2-desktop--font-weight: 800;
+
+  --text-h3: 2rem;
+  --text-h3--line-height: 2.25rem;
+  --text-h3--letter-spacing: -0.05rem;
+  --text-h3--font-weight: 800;
+  --text-h3-desktop: 3rem;
+  --text-h3-desktop--line-height: 3.5rem;
+  --text-h3-desktop--letter-spacing: -0.075rem;
+  --text-h3-desktop--font-weight: 800;
+
+  --text-h5: 1.25rem;
+  --text-h5--line-height: 1.75rem;
+  --text-h5--font-weight: 700;
+  --text-h5-desktop: 1.25rem;
+  --text-h5-desktop--line-height: 2rem;
+  --text-h5-desktop--font-weight: 700;
+
+  --text-quote: 1.25rem;
+  --text-quote--line-height: 2rem;
+  --text-quote--font-weight: 600;
+  --text-quote-desktop: 1.875rem;
+  --text-quote-desktop--line-height: 2.75rem;
+  --text-quote-desktop--letter-spacing: -0.046875rem;
+  --text-quote-desktop--font-weight: 600;
+
+  --text-subtitle-1: 1rem;
+  --text-subtitle-1--line-height: 1.625rem;
+  --text-subtitle-1-desktop: 1.125rem;
+  --text-subtitle-1-desktop--line-height: 1.75rem;
+
+  --text-subtitle-2: 0.875rem;
+  --text-subtitle-2--line-height: 1.5rem;
+  --text-subtitle-2-desktop: 1rem;
+  --text-subtitle-2-desktop--line-height: 1.75rem;
+
+  --text-body: 0.875rem;
+  --text-body--line-height: 1.5rem;
+
+  --text-overline: 0.75rem;
+  --text-overline--line-height: 1rem;
+  --text-overline--letter-spacing: 0.09rem;
+  --text-overline--font-weight: 600;
+
+  /* Shadows */
+  --shadow-badge: 0 4px 12px rgb(0 0 0 / 0.1);
+  --shadow-photo: 0 0 4px #00000012, 0 4px 6px -1px #0000001a;
+  --shadow-form: 0 12px 16px rgb(23 27 44 / 0.04);
+
+  /* Layout — content width (1120px) */
+  --container-page: 70rem;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-white);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
 }
