@@ -65,6 +65,18 @@ Figma variable names have typos (`backgrounnd-*`) and read awkwardly as Tailwind
 - **Node version:** jsdom 31 requires Node 24.15+, so `package.json` has `engines.node >=24.15` and `.nvmrc` pins Node 24. `@types/node` moved from `^20` to `^24` to match (Vitest 5 rejects `@types/node` 20 as a peer). To be noted in the README.
 - **Example component:** `src/components/example/ExampleToggle` (component, story and test) only proves the setup. It is removed in the Header task.
 
+## Button (2026-11-16)
+
+`src/components/ui/Button.tsx`, shared by the Header, the mobile menu and the Hero. Only what the design uses:
+
+- **Variants:** `primary` (blue, "Start learning", "Explore courses"), `secondary` (white with a `line` stroke, "See how it works", "Log in" in the mobile menu) and `ghost` (no background, regular weight, `ink-secondary`, "Log in" in the desktop header). `primary` and `secondary` are Inter Bold 14/24.
+- **Sizes:** `md` is 44px high (header, px 20; `ghost` px 16) and `lg` is 52px high (hero and mobile menu, px 28). Radius 8px.
+- **Secondary stroke:** the Figma stroke is _Inside_, so it is an inset ring (`inset-ring`), not a border. The button is 52px like `primary`, with the same padding. The exported metadata reports 54px; the stroke setting was checked in Figma (2026-11-16).
+- **Element:** with `href` it renders `next/link`, otherwise `<button type="button">`. The props are a typed union, so a link cannot get `disabled` and a button cannot get `href`.
+- **Hover states are not in the design:** `primary` goes to 90% opacity, `secondary` to the `cream` background and `ghost` to `ink`. Color transitions only run with `prefers-reduced-motion: no-preference`.
+- **Disabled** (`<button>` only, for the contact form): 50% opacity, no pointer events.
+- **Focus:** one global `:focus-visible` rule (2px `primary` outline, 2px offset) for every control, instead of per-component classes.
+
 ## Pending
 
 - **Favicon (metadata task):** replace the create-next-app `favicon.ico` with the luma logo.

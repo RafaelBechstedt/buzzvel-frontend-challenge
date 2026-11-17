@@ -95,8 +95,16 @@
   --container-page: 70rem;
 }
 
-body {
-  background-color: var(--color-white);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
+@layer base {
+  body {
+    background-color: var(--color-white);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  /* One visible focus ring for every control; keyboard focus only. */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }
