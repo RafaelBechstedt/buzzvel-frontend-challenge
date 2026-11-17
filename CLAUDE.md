@@ -17,7 +17,7 @@ Buzzvel Front-End technical challenge: build one responsive page (mobile, tablet
 ## Workflow
 
 - Read `docs/roadmap.md` at the start. Update it when a task is done.
-- When a task starts, record the start time with date. When it is merged, fill the time column in the roadmap and tell me the value, so I can adjust for breaks.
+- When a task starts, record the start time with date. When it is merged, tell me its time so I can adjust for breaks. Record its status and time in the roadmap in the first commit of the next task's branch (e.g. after the Hero is merged, the first commit of `feat/categories` is `docs: record hero time`). No separate PR for it.
 - Show a plan before coding. One task at a time; wait for my approval.
 - Never edit project files or settings outside this repository. Your own memory is fine, but the repository (roadmap, decisions, CLAUDE.md) is the source of truth.
 - Do not install new dependencies without asking.

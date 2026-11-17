@@ -2,7 +2,7 @@
 
 **Delivery: Thursday, Nov 19 (evening).** Friday, Nov 20 is buffer for surprises only.
 
-Record the start date and time when a task starts. Update its status and time spent when its PR is merged.
+Record the start date and time when a task starts. After a task's PR is merged, its status and time spent are recorded in the first commit of the next task's branch.
 
 | Task                             | Branch                                                                           | Status        | Started          | Time spent | Notes                                                                                                                                         |
 | -------------------------------- | -------------------------------------------------------------------------------- | ------------- | ---------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
