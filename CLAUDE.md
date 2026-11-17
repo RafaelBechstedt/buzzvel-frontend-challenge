@@ -4,7 +4,7 @@
 
 ## Context
 
-Buzzvel Front-End technical challenge: build one responsive page (mobile, tablet, desktop) from a Figma design. Deadline: Nov 20. Evaluated on design fidelity, responsiveness, code quality, interactions, accessibility and performance. The brief is in `private/`.
+Buzzvel Front-End technical challenge: build one responsive page (mobile, tablet, desktop) from a Figma design. Deadline: Nov 20. Target: deliver Nov 19 in the evening (Nov 20 is buffer). Evaluated on design fidelity, responsiveness, code quality, interactions, accessibility and performance. The brief is in `private/`.
 
 ## Figma (critical)
 
@@ -16,8 +16,9 @@ Buzzvel Front-End technical challenge: build one responsive page (mobile, tablet
 
 ## Workflow
 
+- Read `docs/roadmap.md` at the start. Update it when a task is done.
 - Show a plan before coding. One task at a time; wait for my approval.
-- Never edit files outside this repository.
+- Never edit project files or settings outside this repository. Your own memory is fine, but the repository (roadmap, decisions, CLAUDE.md) is the source of truth.
 - Do not install new dependencies without asking.
 
 ## Code
