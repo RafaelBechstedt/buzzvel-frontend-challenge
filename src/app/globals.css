@@ -93,10 +93,37 @@
 
   /* Layout — content width (1120px) */
   --container-page: 70rem;
+
+  /* Header height, including its 1px bottom border: 69px, 70px from `lg`. */
+  --spacing-header: 4.3125rem;
+  --spacing-header-desktop: 4.375rem;
 }
 
-body {
-  background-color: var(--color-white);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
+@layer base {
+  /* Anchored sections stop below the sticky header. */
+  html {
+    scroll-padding-top: var(--spacing-header);
+
+    @variant lg {
+      scroll-padding-top: var(--spacing-header-desktop);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--color-white);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  /* One visible focus ring for every control; keyboard focus only. */
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 }

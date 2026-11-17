@@ -63,7 +63,47 @@ Figma variable names have typos (`backgrounnd-*`) and read awkwardly as Tailwind
 - **Not added:** `@storybook/addon-vitest` (runs stories in a real browser through Playwright; heavier than needed now), `@storybook/addon-docs` and Chromatic. Storybook telemetry is disabled.
 - **Checks:** `npm run test` runs before each commit (seconds). `npm run build-storybook` runs before each PR (slower, fetches Google Fonts; broken stories already show in `storybook dev`).
 - **Node version:** jsdom 31 requires Node 24.15+, so `package.json` has `engines.node >=24.15` and `.nvmrc` pins Node 24. `@types/node` moved from `^20` to `^24` to match (Vitest 5 rejects `@types/node` 20 as a peer). To be noted in the README.
-- **Example component:** `src/components/example/ExampleToggle` (component, story and test) only proves the setup. It is removed in the Header task.
+- **Example component:** `src/components/example/ExampleToggle` (component, story and test) only proved the setup. It was removed in the Header task, after the menu tests landed (Vitest fails with no test files).
+
+## Button (2026-11-16)
+
+`src/components/ui/Button.tsx`, shared by the Header, the mobile menu and the Hero. Only what the design uses:
+
+- **Variants:** `primary` (blue, "Start learning", "Explore courses"), `secondary` (white with a `line` stroke, "See how it works", "Log in" in the mobile menu) and `ghost` (no background, regular weight, `ink-secondary`, "Log in" in the desktop header). `primary` and `secondary` are Inter Bold 14/24.
+- **Sizes:** `md` is 44px high (header, px 20; `ghost` px 16) and `lg` is 52px high (hero and mobile menu, px 28). Radius 8px.
+- **Secondary stroke:** the Figma stroke is _Inside_, so it is an inset ring (`inset-ring`), not a border. The button is 52px like `primary`, with the same padding. The exported metadata reports 54px; the stroke setting was checked in Figma (2026-11-16).
+- **Element:** with `href` it renders `next/link`, otherwise `<button type="button">`. The props are a typed union, so a link cannot get `disabled` and a button cannot get `href`.
+- **Hover states are not in the design:** `primary` goes to 90% opacity, `secondary` to the `cream` background and `ghost` to `ink`. Color transitions only run with `prefers-reduced-motion: no-preference`.
+- **Disabled** (`<button>` only, for the contact form): 50% opacity, no pointer events.
+- **Focus:** one global `:focus-visible` rule (2px `primary` outline, 2px offset) for every control, instead of per-component classes.
+
+## Header (2026-11-16)
+
+- **Desktop navigation from `lg` (1024px).** At 768px the centered navigation (x 184–520 in 704px of content) would overlap the actions (215px, from x 489). The type scale also switches at `lg`. Below `lg` the header shows the logo and the menu button.
+- **Tablet (768–1023px):** same header as mobile, with 32px side margins (`md:px-8`); mobile keeps the Figma 20px. From `lg` the content is at most 1120px (`max-w-page`), so the logo sits at x 80 at 1280px.
+- **Sticky, not fixed:** the header stays in the flow, so the content needs no top offset. `scroll-padding-top` keeps anchored sections below it. The header height is a token, `--spacing-header` (69px) and `--spacing-header-desktop` (70px from `lg`), shared by the header, the menu panel's max height and the scroll padding. Smooth scrolling only with `prefers-reduced-motion: no-preference`; `data-scroll-behavior="smooth"` on `<html>` keeps route changes instant (Next 16 no longer does it by default).
+- **Link targets** (`src/data/navigation.ts`; each section uses the id from `sectionIds`):
+
+  | Link           | Target                      | Why                                    |
+  | -------------- | --------------------------- | -------------------------------------- |
+  | Courses        | `#courses` (Categories)     | the course catalog                     |
+  | For Teams      | `#contact`                  | there is no teams section; B2B contact |
+  | Community      | `#community` ("The people") | "Explore teachers and students"        |
+  | About          | `#how-it-works`             | "How Luma works"                       |
+  | Start learning | `#courses`                  | same as "Explore courses" in the Hero  |
+  | Log in         | `/login`                    | see below                              |
+
+- **"Log in" is out of scope:** the challenge is a single landing page, so `/login` has no page and shows the Next 404. The link has `prefetch={false}` so production does not request it. A custom not-found page is planned in the Metadata task.
+- **Logo link:** `href="#top"` (the HTML spec scrolls to the top of the document), `aria-label="Luma home"` on the link and `aria-hidden="true"` on the SVG. The logo, menu and close icons are inline SVG components with `currentColor`; the footer reuses the logo in white. The close (X) icon is drawn on the menu icon's grid (24px box, 1.5 stroke, round caps).
+- **Skip link:** "Skip to content" is the first focusable element, visible only on focus, and targets `<main id="main">`. Not in the design.
+- **Mobile menu, implementation details** (behavior in "Mobile menu panel" above):
+  - The toggle has a fixed name, "Menu"; the state is in `aria-expanded` (the Figma layer is "Button - Toggle menu").
+  - The panel is always in the DOM with `hidden` while closed, so `aria-controls` always points to an element.
+  - The entry fade/slide uses `@starting-style` (Tailwind `starting:`) inside `motion-safe:`; there is no exit animation.
+  - The panel has its own top border: it starts at the header's padding box and would otherwise cover the header's bottom line.
+  - The panel is at most `100dvh` minus the header height (`--spacing-header`) and scrolls, for short landscape screens.
+  - **On tablet (`md`) the two buttons sit side by side**, each half the width; below `md` they are stacked and full width.
+  - `MobileMenu` is the only client component in the header.
 
 ## Pending
 
