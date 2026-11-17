@@ -96,6 +96,17 @@
 }
 
 @layer base {
+  /* Anchored sections stop below the sticky header (70px). */
+  html {
+    scroll-padding-top: 70px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
   body {
     background-color: var(--color-white);
     color: var(--color-ink);
