@@ -17,6 +17,7 @@ Buzzvel Front-End technical challenge: build one responsive page (mobile, tablet
 ## Workflow
 
 - Read `docs/roadmap.md` at the start. Update it when a task is done.
+- When a task starts, record the start time with date. When it is merged, fill the time column in the roadmap and tell me the value, so I can adjust for breaks.
 - Show a plan before coding. One task at a time; wait for my approval.
 - Never edit project files or settings outside this repository. Your own memory is fine, but the repository (roadmap, decisions, CLAUDE.md) is the source of truth.
 - Do not install new dependencies without asking.
@@ -32,6 +33,7 @@ Buzzvel Front-End technical challenge: build one responsive page (mobile, tablet
 - `"use client"` only where there is interaction.
 - Keep Next 16.4 defaults (`cacheComponents`, `partialPrefetching`).
 - Use npm.
+- Every reusable component gets a Storybook story with its variants and states. Every interaction gets a test (Vitest + Testing Library).
 
 ## Git
 
@@ -45,6 +47,8 @@ Buzzvel Front-End technical challenge: build one responsive page (mobile, tablet
 ## Verification
 
 After finishing each section, compare it with the Figma screenshot at the mobile and desktop frame widths, and at 768px, using claude-in-chrome.
+
+Before each PR, check the changes against the Code rules in this file and list anything that does not follow them.
 
 ## Decisions
 
