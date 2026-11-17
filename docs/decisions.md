@@ -53,6 +53,18 @@ Figma variable names have typos (`backgrounnd-*`) and read awkwardly as Tailwind
 - **Text styles:** each Figma text style is a `--text-*` token (size, line-height, letter-spacing, weight). The base token is the `Mobile/*` value and the `-desktop` token is the `Desktop/*` value, switched at `lg` (1024px): e.g. `text-h3 lg:text-h3-desktop`. Tablet (768–1023px) uses the mobile type scale. `body` and `overline` are the same on both. `Mobile/H4` / `Desktop/H4` are not used by any text, so there is no `h4` token.
 - **Light theme only:** the design has no dark mode, so the starter's `prefers-color-scheme: dark` styles were removed.
 
+## Storybook and Vitest (2026-11-16)
+
+- **Storybook framework:** `@storybook/nextjs-vite`, the one the Storybook docs recommend for Next.js 14.1+. The project has no Webpack or Babel config to keep, and it mocks `next/image`, `next/link`, `next/navigation` and `next/font`. App Router mode is on (`nextjs.appDirectory`).
+- **Tailwind in Storybook:** Next compiles Tailwind through the Turbopack loader and there is no PostCSS config, so Storybook adds `@tailwindcss/vite` in `viteFinal` and imports `globals.css`. `@tailwindcss/vite` is pinned to the same version as `tailwindcss`.
+- **Fonts in Storybook:** the `next/font` setup lives in `src/app/fonts.ts`, shared by the root layout and the preview. The preview adds the font variable classes to `<html>`, like the layout, because `--font-sans` and `--font-display` resolve on `:root`. In Storybook the font files load from Google Fonts with `display: block`, while the app self-hosts them; this does not affect the app.
+- **Viewports:** mobile 402px and desktop 1280px (Figma frames), tablet 768px.
+- **Tests:** Vitest + Testing Library + `user-event` in jsdom, as in the Next.js guide. Tests and stories live next to their component. `vite-tsconfig-paths` is not used: Vite 8 resolves the `@/*` alias natively (`resolve.tsconfigPaths`).
+- **Not added:** `@storybook/addon-vitest` (runs stories in a real browser through Playwright; heavier than needed now), `@storybook/addon-docs` and Chromatic. Storybook telemetry is disabled.
+- **Checks:** `npm run test` runs before each commit (seconds). `npm run build-storybook` runs before each PR (slower, fetches Google Fonts; broken stories already show in `storybook dev`).
+- **Node version:** jsdom 31 requires Node 24.15+, so `package.json` has `engines.node >=24.15` and `.nvmrc` pins Node 24. `@types/node` moved from `^20` to `^24` to match (Vitest 5 rejects `@types/node` 20 as a peer). To be noted in the README.
+- **Example component:** `src/components/example/ExampleToggle` (component, story and test) only proves the setup. It is removed in the Header task.
+
 ## Pending
 
 - **Favicon (metadata task):** replace the create-next-app `favicon.ico` with the luma logo.
