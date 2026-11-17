@@ -40,7 +40,8 @@ Buzzvel Front-End technical challenge: build one responsive page (mobile, tablet
 - Never commit to `main`. One branch per task from an up-to-date `main` (`feat/`, `fix/`, `chore/`, `docs/`).
 - Never commit `private/` or `.env` files.
 - Conventional Commits in English, simple descriptive messages. Group related changes per commit; nothing huge.
-- Before each commit: `npm run lint`, `npm run typecheck`, `npm run build`, `npm run format:check`.
+- Before each commit: `npm run lint`, `npm run typecheck`, `npm run build`, `npm run format:check`, `npm run test`.
+- Before each PR: also `npm run build-storybook`.
 - Show me the commit message and wait for approval. No push or PR unless I ask.
 - PR descriptions: short, in English, only what changed.
 
