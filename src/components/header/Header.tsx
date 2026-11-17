@@ -6,7 +6,7 @@ import { MobileMenu } from "./MobileMenu";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-40 h-[69px] border-b border-line bg-cream px-5 md:px-8 lg:h-[70px]">
+    <header className="sticky top-0 z-40 h-header border-b border-line bg-cream px-5 md:px-8 lg:h-header-desktop">
       <a
         href="#main"
         className="sr-only rounded-lg bg-white px-4 py-2.5 text-body font-bold text-ink shadow-badge focus:not-sr-only focus:absolute focus:top-3 focus:left-5 focus:z-50"

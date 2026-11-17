@@ -81,7 +81,7 @@ Figma variable names have typos (`backgrounnd-*`) and read awkwardly as Tailwind
 
 - **Desktop navigation from `lg` (1024px).** At 768px the centered navigation (x 184–520 in 704px of content) would overlap the actions (215px, from x 489). The type scale also switches at `lg`. Below `lg` the header shows the logo and the menu button.
 - **Tablet (768–1023px):** same header as mobile, with 32px side margins (`md:px-8`); mobile keeps the Figma 20px. From `lg` the content is at most 1120px (`max-w-page`), so the logo sits at x 80 at 1280px.
-- **Sticky, not fixed:** the header stays in the flow, so the content needs no top offset. `scroll-padding-top: 70px` keeps anchored sections below it. Smooth scrolling only with `prefers-reduced-motion: no-preference`; `data-scroll-behavior="smooth"` on `<html>` keeps route changes instant (Next 16 no longer does it by default).
+- **Sticky, not fixed:** the header stays in the flow, so the content needs no top offset. `scroll-padding-top` keeps anchored sections below it. The header height is a token, `--spacing-header` (69px) and `--spacing-header-desktop` (70px from `lg`), shared by the header, the menu panel's max height and the scroll padding. Smooth scrolling only with `prefers-reduced-motion: no-preference`; `data-scroll-behavior="smooth"` on `<html>` keeps route changes instant (Next 16 no longer does it by default).
 - **Link targets** (`src/data/navigation.ts`; each section uses the id from `sectionIds`):
 
   | Link           | Target                      | Why                                    |
@@ -101,7 +101,7 @@ Figma variable names have typos (`backgrounnd-*`) and read awkwardly as Tailwind
   - The panel is always in the DOM with `hidden` while closed, so `aria-controls` always points to an element.
   - The entry fade/slide uses `@starting-style` (Tailwind `starting:`) inside `motion-safe:`; there is no exit animation.
   - The panel has its own top border: it starts at the header's padding box and would otherwise cover the header's bottom line.
-  - The panel is at most `100dvh - 69px` high and scrolls, for short landscape screens.
+  - The panel is at most `100dvh` minus the header height (`--spacing-header`) and scrolls, for short landscape screens.
   - **On tablet (`md`) the two buttons sit side by side**, each half the width; below `md` they are stacked and full width.
   - `MobileMenu` is the only client component in the header.
 

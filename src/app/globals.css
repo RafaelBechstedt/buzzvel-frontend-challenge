@@ -93,12 +93,20 @@
 
   /* Layout — content width (1120px) */
   --container-page: 70rem;
+
+  /* Header height, including its 1px bottom border: 69px, 70px from `lg`. */
+  --spacing-header: 4.3125rem;
+  --spacing-header-desktop: 4.375rem;
 }
 
 @layer base {
-  /* Anchored sections stop below the sticky header (70px). */
+  /* Anchored sections stop below the sticky header. */
   html {
-    scroll-padding-top: 70px;
+    scroll-padding-top: var(--spacing-header);
+
+    @variant lg {
+      scroll-padding-top: var(--spacing-header-desktop);
+    }
   }
 
   @media (prefers-reduced-motion: no-preference) {

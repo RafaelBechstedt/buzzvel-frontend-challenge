@@ -60,7 +60,7 @@ export function MobileMenu() {
       <div
         id={panelId}
         hidden={!open}
-        className="absolute inset-x-0 top-full max-h-[calc(100dvh-69px)] overflow-y-auto border-y border-line bg-cream px-5 pt-2 pb-6 motion-safe:transition-[opacity,translate] motion-safe:duration-200 motion-safe:ease-out md:px-8 motion-safe:starting:-translate-y-2 motion-safe:starting:opacity-0"
+        className="absolute inset-x-0 top-full max-h-[calc(100dvh-var(--spacing-header))] overflow-y-auto border-y border-line bg-cream px-5 pt-2 pb-6 motion-safe:transition-[opacity,translate] motion-safe:duration-200 motion-safe:ease-out md:px-8 motion-safe:starting:-translate-y-2 motion-safe:starting:opacity-0"
       >
         <nav aria-label="Main">
           <ul>
