@@ -69,13 +69,13 @@ Figma variable names have typos (`backgrounnd-*`) and read awkwardly as Tailwind
 
 `src/components/ui/Button.tsx`, shared by the Header, the mobile menu and the Hero. Only what the design uses:
 
-- **Variants:** `primary` (blue, "Start learning", "Explore courses"), `secondary` (white with a `line` stroke, "See how it works", "Log in" in the mobile menu) and `ghost` (no background, regular weight, `ink-secondary`, "Log in" in the desktop header). `primary` and `secondary` are Inter Bold 14/24.
+- **Variants:** `primary` (blue, "Start learning", "Explore courses"), `secondary` (white with a `line` stroke, "See how it works", "Log in" in the mobile menu) and `ghost` (no background, regular weight, `ink-secondary`, "Log in" in the desktop header) and `accent` (yellow, `ink`, "View course" in Featured course; added 2026-11-18). `primary`, `secondary` and `accent` are Inter Bold 14/24.
 - **Sizes:** `md` is 44px high (header, px 20; `ghost` px 16) and `lg` is 52px high (hero and mobile menu, px 28). Radius 8px.
 - **Secondary stroke:** the Figma stroke is _Inside_, so it is an inset ring (`inset-ring`), not a border. The button is 52px like `primary`, with the same padding. The exported metadata reports 54px; the stroke setting was checked in Figma (2026-11-16).
 - **Element:** with `href` it renders `next/link`, otherwise `<button type="button">`. The props are a typed union, so a link cannot get `disabled` and a button cannot get `href`.
 - **Hover states are not in the design:** `primary` goes to 90% opacity, `secondary` to the `cream` background and `ghost` to `ink`. Color transitions only run with `prefers-reduced-motion: no-preference`.
 - **Disabled** (`<button>` only, for the contact form): 50% opacity, no pointer events.
-- **Focus:** one global `:focus-visible` rule (2px `primary` outline, 2px offset) for every control, instead of per-component classes.
+- **Focus:** one global `:focus-visible` rule (2px `primary` outline, 2px offset) for every control, instead of per-component classes. The color is `var(--focus-ring, var(--color-primary))`: a section on a blue background sets `--focus-ring` to white (Featured course), since a blue ring would not show there.
 
 ## Header (2026-11-16)
 
@@ -125,6 +125,19 @@ Figma variable names have typos (`backgrounnd-*`) and read awkwardly as Tailwind
 - **Hover and focus are not in the design:** on hover the border goes from `line` to `primary` and the arrow moves 4px right. Transitions only run with `prefers-reduced-motion: no-preference`. Focus uses the global `:focus-visible` ring, which follows the card radius.
 - **`ArrowIcon`** (`src/components/icons`) is a `currentColor` component drawn from the Figma `Arrow` (20px, stroke 1.5). Featured course reuses it in white.
 - **Card numbers** (01–04) come from the list order, not from the data.
+
+## Featured course (2026-11-18)
+
+- **Container:** 1120px (`max-w-page`) like every section, not the Figma 1136px (see "Container widths"). At 1280 the text column starts at x 670 instead of 678.
+- **Side by side from `lg` (1024px), stacked below.** At 1024 each column is 450px; "Designing products" (48px) still fits on one line, and the badge sticks out only 12px into the 32px gutter. Image first on every viewport, as in Figma, so DOM order is visual order.
+- **Tablet (768–1023px):** one centered 560px column (`max-w-140`, like the Hero tablet). The photo is 560×408, close to the 700×500 source ratio, so little is cropped. The buttons sit side by side at their own width; below `md` they are stacked and full width.
+- **Image:** not the LCP, so no `preload`. `sizes` follows the column width: `(min-width: 74rem) 530px, (min-width: 64rem) calc(50vw - 62px), (min-width: 48rem) 560px, calc(100vw - 40px)` (74rem is where the 1120px cap starts with the 32px gutters).
+- **Accessible name:** the section is labelled by the badge and the h2 ("Featured Course Designing products people understand."), so the region says what it is. The badge is real text (uppercase only in CSS).
+- **Chips are read:** they are course info, in a `ul` named "Course details". The "·" in the instructor line is `aria-hidden`, with an `sr-only` comma.
+- **Link targets** (same rule as Categories): "View course" → `/courses/designing-products-people-understand` with `prefetch={false}` (out of scope, 404 until the custom not-found page) and `aria-describedby` on the h2, so it keeps its visible name and gets context. "Browse all courses" → `#courses`, the catalog on this page, like the Hero's "Explore courses".
+- **"Browse all courses" is white, not `on-dark-secondary`:** #e7e7ec on the blue #3157f6 is 4.45:1, below the WCAG AA 4.5:1 for 14px bold text; white is 5.5:1. Hover (not in the design) moves the arrow 4px, as in the category cards.
+- **"Browse all courses" height:** 52px everywhere, like the desktop link; the mobile Figma link is 50px.
+- **No new component:** the chips and the badge are only used here. The yellow button is a `Button` variant (`accent`).
 
 ## Pending
 
