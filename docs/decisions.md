@@ -105,6 +105,18 @@ Figma variable names have typos (`backgrounnd-*`) and read awkwardly as Tailwind
   - **On tablet (`md`) the two buttons sit side by side**, each half the width; below `md` they are stacked and full width.
   - `MobileMenu` is the only client component in the header.
 
+## Hero (2026-11-18)
+
+- **Two columns only from `xl` (1280px), one centered column below.** The rating badge sticks out 56px past the photo and the orange bar 39px. With the 32px gutter from `md`, at 1024–1279px the badge would be clipped, and the text column would be about 350px wide (the 64px H1 breaking almost word by word).
+- **Order:** below 768 we follow Figma (image first); from 768 to 1279 the text comes first, so the h1 and CTAs are above the fold on small laptops.
+- **Tablet (768–1279px):** text, then the photo, in one centered column of 560px (the Figma desktop text column). The photo keeps the desktop geometry (500×520, radius 24, desktop offsets for the shapes and badges); the CTAs sit side by side at their own width and the social proof is left-aligned. From `lg` the text uses the desktop type scale (same switch as the rest of the page).
+- **Mobile shapes and badges** are placed from the right and bottom of the photo box, so they follow screens narrower than 402px. `overflow-x-clip` on the section stops horizontal scroll.
+- **Reading order:** the text comes first in the DOM and the photo block is moved above it with CSS `order` below `md` only. The photo block has no focusable elements, so focus order is not affected, and screen readers reach the h1 before the badges.
+- **LCP image:** `preload` on the photo (Next 16 deprecated `priority` for `preload`; the docs recommend it when one image is the LCP above the fold on every viewport). It adds a `<link rel="preload">` with the same `sizes` in `<head>`: `(min-width: 48rem) 500px, calc(100vw - 56px)`.
+- **Badges are read by screen readers:** "120+ expert-led courses" and "4.9 avg rating" are not elsewhere on the page. The stars are decorative (`aria-hidden`); the orange bar and blue circle are empty `aria-hidden` elements.
+- **Avatars have empty `alt`:** the photos are anonymous learners and "Trusted by 24,000+ learners" next to them already says what they mean. `AvatarGroup` (`src/components/ui`) draws the cream border in CSS; FinalCTA adds its yellow, larger variant.
+- **CTAs:** "Explore courses" → `#courses`, "See how it works" → `#how-it-works`.
+
 ## Pending
 
 - **Favicon (metadata task):** replace the create-next-app `favicon.ico` with the luma logo.
