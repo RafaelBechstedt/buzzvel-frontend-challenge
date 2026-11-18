@@ -17,7 +17,7 @@ The mobile header only shows a closed "Toggle menu" button; the open state is no
 
 ## Figma inconsistencies (2026-11-13)
 
-- **How it works step labels:** all three desktop steps read "Step 01". Implemented as Step 01 / 02 / 03, which matches the sequence and the mobile text widths.
+- **How it works step labels:** all three desktop steps read "Step 01". Implemented as Step 01 / 02 / 03, which matches the sequence and the mobile text widths (screen reader treatment in "How it works").
 - **"The people" paragraph:** the design uses lorem ipsum. Kept as in the design.
 - **Container widths:** FeaturedCourse, Testimonial and Footer use a 1136px inner container; every other section uses 1120px. All sections use the same 1120px container.
 - **Category cards:** only the first card pins "Explore" to the bottom (`justify-between`). All four cards pin it to the bottom, as the screenshot shows.
@@ -138,6 +138,18 @@ Figma variable names have typos (`backgrounnd-*`) and read awkwardly as Tailwind
 - **"Browse all courses" is white, not `on-dark-secondary`:** #e7e7ec on the blue #3157f6 is 4.45:1, below the WCAG AA 4.5:1 for 14px bold text; white is 5.5:1. Hover (not in the design) moves the arrow 4px, as in the category cards.
 - **"Browse all courses" height:** 52px everywhere, like the desktop link; the mobile Figma link is 50px.
 - **No new component:** the chips and the badge are only used here. The yellow button is a `Button` variant (`accent`).
+
+## How it works (2026-11-18)
+
+- **Vertical timeline below `lg` (1024px), three columns from `lg`.** At 768 three columns would be 181px wide with the 80px gap, and "Learn from experience" would wrap. At 1024 the columns are about 267px: the titles fit on one line and the descriptions take 3 lines (`text-pretty` avoids a one-word last line).
+- **Tablet (768–1023px):** the mobile timeline in a centered 560px column (`max-w-140`), like the Hero and Featured course on tablet. The heading stays centered on the full width.
+- **Connecting line:** each step except the last draws its line with an `::after` (no content, so screen readers skip it). Below `lg` it is vertical, 1px × 50px at x 28, and ends at the next icon (Figma mobile). From `lg` it is horizontal, from the step's icon center to the next one's, which gives the Figma line (x 52–813) without a fixed width. The icons are `z-1`, so the line passes behind them.
+- **Step labels:** the visible "Step 01" is `aria-hidden` and the `h3` starts with an `sr-only` "Step 1: ". The heading list reads "Step 1: Choose your focus", and the number is not read twice. The `ol` alone is not enough: NVDA does not announce the item position, and Safari drops list semantics with `list-style: none`.
+- **Icons:** CSS shapes in an `aria-hidden` box, not images. The step 3 dot (#e9d659) is not in the palette, so it is a one-off value.
+- **Mobile copy:** the mobile frame says "professionals who _actually_ use these skills"; the desktop says "who use these skills". The page uses the desktop text (one copy for every viewport, as with the contact form).
+- **Mobile step 2 shape:** in the mobile frame the rotated square is orange at about 15% (sampled #fae4db); on desktop it is `orange-light` (#ffcb9f). `orange-light` is used everywhere.
+- **Small height differences:** the section is 1px taller at 1280 and 9px shorter at 402 than in Figma. Figma's text frames are 1–2px taller than the line height (heading 69px, label 41px, mobile h3 38px); the code uses the text-style line heights.
+- **No story or test:** the section is not reusable and has no interaction (same as Featured course).
 
 ## Pending
 
