@@ -117,6 +117,15 @@ Figma variable names have typos (`backgrounnd-*`) and read awkwardly as Tailwind
 - **Avatars have empty `alt`:** the photos are anonymous learners and "Trusted by 24,000+ learners" next to them already says what they mean. `AvatarGroup` (`src/components/ui`) draws the cream border in CSS; FinalCTA adds its yellow, larger variant.
 - **CTAs:** "Explore courses" → `#courses`, "See how it works" → `#how-it-works`.
 
+## Categories (2026-11-18)
+
+- **Grid:** one column below `md`, **two columns on tablet (768–1023px)**. At 768 two cards are about 344px wide, close to the mobile card (362px). 4 columns from lg; at 1024 cards are 225px wide and grow to ~290px tall, which is tighter but keeps the section short. "Product Design" still fits on one line. Padding Y follows the Hero (60 / 80 from `md` / 100 from `xl`); card padding and gaps switch to the desktop values at `lg`, with the type scale.
+- **Whole-card links:** each card is one link (the Figma layer is "Link") with the `h3` inside. `aria-labelledby` points to the title and `aria-describedby` to the description; the number badge and "Explore →" are `aria-hidden`. A screen reader says "Product Design, link" and then the description, instead of "01 Product Design … Explore". The `ul` gives the position, so the number is not needed.
+- **Link targets:** `/courses/<slug>` (`product-design`, `technology`, `business`, `creative`), with `prefetch={false}`. Like "Log in", these pages are out of scope and show the 404 until the custom not-found page (Metadata task) explains it. An anchor does not fit: `#courses` is this section, and Featured course shows a single course.
+- **Hover and focus are not in the design:** on hover the border goes from `line` to `primary` and the arrow moves 4px right. Transitions only run with `prefers-reduced-motion: no-preference`. Focus uses the global `:focus-visible` ring, which follows the card radius.
+- **`ArrowIcon`** (`src/components/icons`) is a `currentColor` component drawn from the Figma `Arrow` (20px, stroke 1.5). Featured course reuses it in white.
+- **Card numbers** (01–04) come from the list order, not from the data.
+
 ## Pending
 
 - **Favicon (metadata task):** replace the create-next-app `favicon.ico` with the luma logo.
