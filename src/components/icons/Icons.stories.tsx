@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 
+import { ArrowIcon } from "./ArrowIcon";
 import { CloseIcon } from "./CloseIcon";
 import { MenuIcon } from "./MenuIcon";
 
@@ -25,12 +26,18 @@ export const Close: Story = {
   render: (args) => <CloseIcon {...args} />,
 };
 
-/** Both icons take the text color. */
+/** "Explore" in the category cards; "Browse courses" in Featured course. */
+export const Arrow: Story = {
+  render: (args) => <ArrowIcon {...args} />,
+};
+
+/** Every icon takes the text color. */
 export const OnDark: Story = {
   render: (args) => (
     <>
       <MenuIcon {...args} />
       <CloseIcon {...args} />
+      <ArrowIcon {...args} />
     </>
   ),
   decorators: [
