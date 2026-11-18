@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 
-export type ButtonVariant = "primary" | "secondary" | "ghost";
+export type ButtonVariant = "primary" | "secondary" | "ghost" | "accent";
 export type ButtonSize = "md" | "lg";
 
 type BaseProps = {
@@ -36,6 +36,8 @@ const variants: Record<ButtonVariant, string> = {
   secondary:
     "bg-white font-bold text-ink inset-ring inset-ring-line hover:bg-cream",
   ghost: "text-ink-secondary hover:text-ink",
+  // Yellow, for the blue Featured course section.
+  accent: "bg-yellow font-bold text-ink hover:bg-yellow-light",
 };
 
 function padding(variant: ButtonVariant, size: ButtonSize) {

@@ -23,7 +23,7 @@ const meta = {
   argTypes: {
     variant: {
       control: "inline-radio",
-      options: ["primary", "secondary", "ghost"],
+      options: ["primary", "secondary", "ghost", "accent"],
     },
     size: { control: "inline-radio", options: ["md", "lg"] },
   },
@@ -75,6 +75,29 @@ export const GhostLarge: Story = {
   args: { children: "Log in", variant: "ghost", size: "lg" },
 };
 
+/** "View course" in the Featured course section, on the blue background. */
+export const Accent: Story = {
+  args: { children: "View course", variant: "accent", size: "lg" },
+  decorators: [
+    (Story) => (
+      <div className="bg-primary p-6 [--focus-ring:var(--color-white)]">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
+/** On blue, keyboard focus uses the white ring (`--focus-ring`). */
+export const AccentFocusVisible: Story = {
+  ...Accent,
+  play: async ({ canvasElement }) => {
+    await userEvent.tab();
+    await expect(
+      within(canvasElement).getByRole("button", { name: "View course" }),
+    ).toHaveFocus();
+  },
+};
+
 /** Mobile menu and mobile hero. */
 export const FullWidth: Story = {
   args: { size: "lg", fullWidth: true },
@@ -124,6 +147,9 @@ export const AllVariants: Story = {
           </Button>
           <Button size={size} variant="ghost">
             Log in
+          </Button>
+          <Button size={size} variant="accent">
+            View course
           </Button>
         </div>
       ))}
