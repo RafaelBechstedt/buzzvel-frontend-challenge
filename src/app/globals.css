@@ -24,6 +24,8 @@
   --color-yellow-light: #fff1c2;
   --color-cream: #f9f8f3;
   --color-line: #dbdfeb;
+  /* Not in Figma: error text and borders for the contact form (docs/decisions.md). */
+  --color-error: #d92d20;
 
   /* Text styles — base is the mobile value, `-desktop` is applied at `lg`. */
   --text-h1: 2.5rem;

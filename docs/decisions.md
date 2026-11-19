@@ -173,6 +173,21 @@ Figma variable names have typos (`backgrounnd-*`) and read awkwardly as Tailwind
 - **Container:** 1120px like every section. At 1280 the mosaic starts at x 670, as in Figma.
 - **No story or test:** the section is not reusable and has no interaction (the Button has its own).
 
+## Contact (2026-11-19)
+
+- **Stacked below `lg` (1024px), info and form side by side from `lg`.** Tablet (768–1023px) is the mobile layout in a centered 560px column (`max-w-140`), like the other sections. From `lg` both columns are `flex-1` (~450px at 1024: the description takes 4 lines, the fields are 368px wide); from `xl` they are capped at the Figma widths (info 480px, form 540px) and `justify-between` gives the 100px gap at 1280.
+- **Submit goes to a simulated route handler**, `POST /api/contact` (`src/app/api/contact/route.ts`). The brief accepts mock data, so the route waits 800ms (so the sending state is real), validates again on the server (the client cannot be trusted) and answers `{ ok: true }`, or 400 with one message per field. It does not store or log anything. Validation lives in `src/lib/contact.ts`, shared by the form and the route; no schema library for three fields.
+- **When it validates:** on submit (every field) and on blur, never on each key. On blur, an empty field the user never typed in shows no error, so tabbing through the form does not fill it with errors; a field with an error is checked again on its next blur. Required fields and a simple email pattern (`something@something.tld`, no spaces). The form has `noValidate` (our messages instead of the browser bubbles) but keeps `required` and `type="email"` for their semantics.
+- **Errors:** the message is below the field, linked with `aria-describedby`, and the control gets `aria-invalid`. On submit, focus moves to the first invalid field; `flushSync` renders the error first, so screen readers read it with the field. Server field errors are shown the same way.
+- **Error color `#d92d20` (`--color-error`), not in Figma:** the design has no error state and no red. It is 4.8:1 on white (AA); the palette orange (#ff704d) is about 2.9:1. The border turns red too, but the text message is what carries the error, not the color.
+- **Sending:** the button says "Sending…" and is `disabled`. A ref ignores a second submit before the re-render disables the button (double click, Enter twice). A disabled button loses focus to `<body>`, so focus goes back to the button when the request ends.
+- **Success and failure messages:** "Thanks! Your message was sent…" in a `role="status"` region and "Something went wrong. Please try again." in a `role="alert"` region, below the button. Both regions are always in the DOM, so the message is announced when it appears. On success the fields are cleared; editing the form again hides the message. No icon, as nothing in the design shows one.
+- **Without JavaScript** the form has `method="post" action="/api/contact"`: the browser posts to the route (which answers 400, as it expects JSON) instead of a GET that would put the name, email and question in the URL.
+- **Contact cards:** a `dl`, one `div` per item, so each reads as "Email, contact@luma.com". The icons have an empty `alt` (the label is next to them). The email is a `mailto:` link. Mobile padding 16px and a 2px text gap, desktop 20px and 4px (Figma).
+- **Fields:** `TextField` and `TextareaField` (`src/components/ui/Field.tsx`) with a visible label, `useId` for the label/error links, `autoComplete` `name` and `email`, `spellCheck={false}` on the email. Inputs are 48px (Figma); the textarea is 100px on mobile and 120px from `lg`, and can be resized vertically. Focus uses the global ring. Disabled (50% opacity) is in the stories; the form does not disable its fields while sending.
+- **No spam protection** (honeypot, rate limit): there is no real backend to protect. To be noted in the README.
+- **Small height differences:** at 402 the form is 2px shorter (Mobile/H5 "Contact us", see "Figma inconsistencies"), and at 1280 the section is 2px taller (the 1px form border is outside the Figma content).
+
 ## Pending
 
 - **Favicon (metadata task):** replace the create-next-app `favicon.ico` with the luma logo.
