@@ -163,6 +163,16 @@ Figma variable names have typos (`backgrounnd-*`) and read awkwardly as Tailwind
 - **Small height difference:** the stats column is 334px at 1280, 9px taller than in Figma (325px). Each Figma label frame is 25px with a 4px top padding and a 24px line, so the text overflows by 3px; the code uses the full line height. Mobile matches Figma (524px).
 - **No story or test:** the section is not reusable and has no interaction.
 
+## Community (2026-11-19)
+
+- **Stacked below `lg` (1024px), text and mosaic side by side from `lg`**, both columns `flex-1` as in Figma. Tablet (768–1023px) is the mobile layout in a centered 560px column (`max-w-140`), like the other sections, with the desktop mosaic (520px) centered. At 1024 each column is ~450px: the title wraps to 3 lines and the mosaic scales down.
+- **Mosaic scales with its width:** the photo sizes, gaps, column offsets and circle come from Figma (mobile frame: 362px wide; desktop: 520px), in `src/data/community.ts`. They are converted to `cqw` of the mosaic container (`@container`, max 362px below `md`, 520px from `md`). The mosaic matches Figma at 402 and from 768, and shrinks without horizontal scroll at 320–375 and at 1024. The mobile geometry is not the desktop one scaled (the mobile photos are shorter), so both are kept.
+- **The photos are decorative (`alt=""`):** they are a generic collage that illustrates the heading and add no information the heading and paragraph do not give. Ten stock-photo descriptions would only be noise for screen readers. The circle is an empty `div`.
+- **Images:** `next/image` with `fill`, lazy (default; the section is far below the fold) and `sizes` with each photo's Figma width (72–138px), so the browser loads the 128w or 256w variant. Radius 4.013px → `rounded-sm` (4px); shadow `shadow-photo` (`Shadow/Dark/M`).
+- **Link target:** "Explore teachers and students" → `/community` with `prefetch={false}`, out of scope like the course pages (404 until the custom not-found page). `#community` would point to the section itself. No arrow, as in the design.
+- **Container:** 1120px like every section. At 1280 the mosaic starts at x 670, as in Figma.
+- **No story or test:** the section is not reusable and has no interaction (the Button has its own).
+
 ## Pending
 
 - **Favicon (metadata task):** replace the create-next-app `favicon.ico` with the luma logo.
