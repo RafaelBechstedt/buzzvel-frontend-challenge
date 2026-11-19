@@ -151,6 +151,18 @@ Figma variable names have typos (`backgrounnd-*`) and read awkwardly as Tailwind
 - **Small height differences:** the section is 1px taller at 1280 and 9px shorter at 402 than in Figma. Figma's text frames are 1–2px taller than the line height (heading 69px, label 41px, mobile h3 38px); the code uses the text-style line heights.
 - **No story or test:** the section is not reusable and has no interaction (same as Featured course).
 
+## Testimonial (2026-11-19)
+
+- **Stacked below `lg` (1024px), stats column on the right from `lg`.** Tablet (768–1023px) is the mobile layout in a centered 560px column (`max-w-140`), like the other sections on tablet. The stats keep the mobile 3-column row; at 768 each column is 187px.
+- **Stats column width:** 401px (Figma, one-off value) from `xl`; at `lg` it takes its content width (~223px). At 1024 the quote keeps its 600px column and 3 lines, as in Figma; with a fixed 401px it would shrink to ~520px and 4 lines.
+- **Container:** 1120px like every section, not the Figma 1136px (see "Container widths"). At 1280 the divider sits at x 799 instead of 815; the quote column is unchanged.
+- **Section name:** the section has no visible heading in Figma. An `sr-only` h2 ("What our learners say") keeps the heading outline and names the region.
+- **Quote:** `figure` with `blockquote` and `figcaption` (photo, name, role). The name is a `p`, not `cite`, which the HTML spec reserves for the title of a work. The quote mark has an empty `alt` (the `blockquote` already says it is a quote), like the Hero star.
+- **Photo has an empty `alt`:** the name is right next to it, so "Alex Morgan" would be read twice.
+- **Stats are a `ul` named "Luma in numbers"**, not a `dl`: each item reads as one phrase ("120+ expert-led courses"). A `dl` puts the term (the label) before the value, so it would read "active learners, 24K+" and need a reversed visual order. "24K+" is `aria-hidden` and an `sr-only` "24,000+" is read instead (screen readers say "24 K plus"); the Hero says "24,000+ learners".
+- **Small height difference:** the stats column is 334px at 1280, 9px taller than in Figma (325px). Each Figma label frame is 25px with a 4px top padding and a 24px line, so the text overflows by 3px; the code uses the full line height. Mobile matches Figma (524px).
+- **No story or test:** the section is not reusable and has no interaction.
+
 ## Pending
 
 - **Favicon (metadata task):** replace the create-next-app `favicon.ico` with the luma logo.
