@@ -72,11 +72,13 @@ export function Hero() {
           />
 
           <div className="absolute inset-x-2 inset-y-0 overflow-hidden rounded-2xl bg-primary-light md:inset-x-0 md:rounded-3xl">
+            {/* LCP image: eager + high priority instead of `preload` (docs/decisions.md). */}
             <Image
               src={image.src}
               alt={image.alt}
               fill
-              preload
+              loading="eager"
+              fetchPriority="high"
               sizes="(min-width: 48rem) 500px, calc(100vw - 56px)"
               className="object-cover"
             />
