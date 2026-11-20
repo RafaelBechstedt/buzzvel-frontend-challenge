@@ -188,6 +188,19 @@ Figma variable names have typos (`backgrounnd-*`) and read awkwardly as Tailwind
 - **No spam protection** (honeypot, rate limit): there is no real backend to protect. To be noted in the README.
 - **Small height differences:** at 402 the form is 2px shorter (Mobile/H5 "Contact us", see "Figma inconsistencies"), and at 1280 the section is 2px taller (the 1px form border is outside the Figma content).
 
+## Final CTA (2026-11-19)
+
+Built from the metadata, the screens and the typography map (no `get_design_context` for this section).
+
+- **Link targets** (same rule as the other sections): "Explore all courses" → `#courses`, like "Explore courses" and "Browse all courses". "Join Luma" → `/signup` with `prefetch={false}`: creating an account is out of scope, like "Log in" → `/login` (404 until the custom not-found page).
+- **Avatars have empty `alt`:** anonymous learners, as in the Hero; the heading carries the meaning. `AvatarGroup` gets `variant="yellow"`: 40px photos with a yellow border (Hero keeps the default `cream`, 32px). Same 8px overlap.
+- **Decoration only from `lg` (1024px).** Mobile has none in Figma. Tablet (768–1023px) is the mobile layout without decoration and with the buttons side by side at their own width: at 768 there are less than 170px on each side of the text, so the shapes would crowd the heading.
+- **Decoration:** an `aria-hidden` layer with `pointer-events-none`; the section has `overflow-hidden`, so shapes cut at the edges never cause horizontal scroll. Five icons are the SVG files in `public/images/final-cta/` (`next/image`, empty `alt`); the circles and rounded squares are CSS in `orange-light`. Positions come from the 1280 frame: left items are anchored to the left edge, right items to the right edge (`1280 − x − width`), so wider screens keep them at the edges. No animation: the design is static.
+- **Rotated squares:** the metadata only gives their bounding box (136.5 and 66.4px). Measured on the screen: 12° rotation, 115px and 56px sides, centered on the Figma bounding box.
+- **Omitted:** the 160px ellipse behind the cube icon (`Ellipse 28`) is not visible in the screen, so it is not drawn.
+- **At 1024–1279px the "B" icon is hidden:** with the right items moving in, nothing covers the text, but the B would sit about 10px from the "Explore all courses" button. The cube stays about 30px from the heading.
+- **Padding Y:** 60px, 80px from `md`, 100px from `lg` (not `xl` as in the other sections), so the decoration has the Figma section height. The section is 2–3px taller than Figma at 402 and 1280 (Figma text boxes are 1–2px taller than their frames).
+
 ## Pending
 
 - **Favicon (metadata task):** replace the create-next-app `favicon.ico` with the luma logo.
