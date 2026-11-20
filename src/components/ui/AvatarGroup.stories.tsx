@@ -34,6 +34,26 @@ export const Single: Story = {
   },
 };
 
+/** Final CTA: 40px photos with a yellow border, on the yellow section. */
+export const Yellow: Story = {
+  args: {
+    variant: "yellow",
+    avatars: [
+      { src: "/images/avatars/avatar-1.jpg", alt: "" },
+      { src: "/images/avatars/avatar-2.jpg", alt: "" },
+      { src: "/images/avatars/avatar-3.jpg", alt: "" },
+      { src: "/images/avatars/avatar-4.png", alt: "" },
+    ],
+  },
+  decorators: [
+    (Story) => (
+      <div className="bg-yellow-light p-6">
+        <Story />
+      </div>
+    ),
+  ],
+};
+
 /** With names, when no text next to the group says who they are. */
 export const Labelled: Story = {
   args: {
