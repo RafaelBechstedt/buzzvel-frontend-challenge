@@ -37,7 +37,7 @@ export default function NotFound() {
             {outOfScope.map((page) => (
               <li
                 key={page}
-                className="rounded-full bg-white px-3 py-1 text-body text-ink-secondary inset-ring inset-ring-line"
+                className="rounded-full border border-line bg-white px-2.75 py-0.75 text-body text-ink-secondary"
               >
                 {page}
               </li>

@@ -37,7 +37,7 @@ export function FeaturedCourse() {
           </div>
           <p
             id="featured-badge"
-            className="absolute -top-3 -left-3 rounded-md bg-yellow px-3 py-1.5 text-overline text-ink uppercase"
+            className="absolute -top-3 -left-3 rounded-md bg-yellow px-3 py-1.5 text-overline text-ink uppercase forced-colors:outline"
           >
             {badge}
           </p>

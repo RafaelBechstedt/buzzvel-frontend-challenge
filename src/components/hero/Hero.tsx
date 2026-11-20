@@ -4,8 +4,9 @@ import { AvatarGroup } from "@/components/ui/AvatarGroup";
 import { Button } from "@/components/ui/Button";
 import { heroContent } from "@/data/hero";
 
+// In forced colors the background and shadow are dropped: an outline keeps the badge edge.
 const badge =
-  "absolute flex w-max items-center rounded-xl bg-white px-4 py-3 text-body whitespace-nowrap text-ink shadow-badge";
+  "absolute flex w-max items-center rounded-xl bg-white px-4 py-3 text-body whitespace-nowrap text-ink shadow-badge forced-colors:outline";
 
 export function Hero() {
   const {
