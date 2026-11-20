@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <!-- "l." monogram: the "l" and "." paths of the luma logo (src/components/ui/Logo.tsx), white on ink. -->
+  <rect width="32" height="32" rx="7" fill="#171b2c"/>
+  <g fill="#ffffff" transform="translate(11.4 6.4) scale(1.15)">
+    <path d="M0 16.654V0H2.882V16.654H0Z"/>
+    <path transform="translate(-45.752 0)" d="M50.8339 16.654V13.574H53.7379V16.654H50.8339Z"/>
+  </g>
+</svg>
