@@ -16,8 +16,8 @@ const linkClassName =
   "rounded-sm text-body text-on-dark-tertiary hover:text-white motion-safe:transition-colors";
 
 function FooterLink({ label, href }: NavLink) {
-  // Anchors stay on this page; routes are out of scope, so no prefetch.
-  return href.startsWith("#") ? (
+  // Section anchors ("/#id") scroll on the home page; routes are out of scope, so no prefetch.
+  return href.startsWith("/#") ? (
     <a href={href} className={linkClassName}>
       {label}
     </a>
@@ -38,9 +38,11 @@ export async function Footer() {
         {/* Brand on top below lg; brand left and the three columns right from lg (docs/decisions.md). */}
         <div className="flex flex-col gap-10 lg:flex-row lg:justify-between lg:gap-8">
           <div>
-            {/* "#top" scrolls to the top of the document (HTML spec). */}
+            {/* "/#top": the top of the home page (no "top" id, so the HTML spec scrolls to the top).
+            A plain <a> on purpose: on the home page it is a fragment link, not a page navigation. */}
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a
-              href="#top"
+              href="/#top"
               aria-label="Luma home"
               className="flex w-fit rounded-sm text-white"
             >

@@ -1,6 +1,6 @@
 import type { Avatar } from "@/components/ui/AvatarGroup";
 
-import { type NavLink, sectionIds } from "./navigation";
+import { type NavLink, sectionHref, sectionIds } from "./navigation";
 
 export type FinalCtaContent = {
   title: string;
@@ -13,7 +13,10 @@ export type FinalCtaContent = {
 export const finalCtaContent: FinalCtaContent = {
   title: "What will you learn next?",
   description: "Start with one course. Build from there.",
-  primaryCta: { label: "Explore all courses", href: `#${sectionIds.courses}` },
+  primaryCta: {
+    label: "Explore all courses",
+    href: sectionHref(sectionIds.courses),
+  },
   // Sign-up has no page in this challenge (see docs/decisions.md).
   secondaryCta: { label: "Join Luma", href: "/signup" },
   // Decorative: anonymous learners, the heading carries the meaning.

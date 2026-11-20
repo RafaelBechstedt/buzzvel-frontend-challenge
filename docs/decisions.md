@@ -224,6 +224,23 @@ Built from the metadata, the screens and the typography map (no `get_design_cont
 - **Spacing:** padding 60/20px (mobile), 80/40px from `md`. The gap from the last link to the line is measured on the screens (36px mobile, 66px desktop): the Figma column frames are shorter than their content. The footer is 621.5px at 402 (Figma 622) and 394.5px at 1280 (Figma 395).
 - **At 1280 the columns start 16px left of Figma**, because of the 1120px container (see "Figma inconsistencies").
 
-## Pending
+## Metadata (2026-11-19)
 
-- **Favicon (metadata task):** replace the create-next-app `favicon.ico` with the luma logo.
+- **One source for site texts:** `src/data/site.ts` (name, organization, Vercel URL, title, description) feeds the layout metadata, the Open Graph image, the JSON-LD, `robots.ts` and `sitemap.ts`. Title "Luma — Build skills that actually move you forward" (template `%s | Luma`); the description is the Hero paragraph (136 characters).
+- **Metadata API in the root layout:** `metadataBase` (Vercel URL), title, description, `openGraph` (`website`, `en_US`) and `twitter.card: summary_large_image`. Next copies the Open Graph title, description and image to the Twitter tags, so they are not repeated. The canonical (`/`) is in `page.tsx`, not in the layout, so the 404 page has no canonical to home.
+- **Open Graph image generated with `opengraph-image.tsx`** (`ImageResponse` from `next/og`, no dependency), 1200×630, static at build: logo, Hero eyebrow and headline on cream, and the Hero photo on the right. The Hero photo alone is 900×1100 portrait: cropped to 1.91:1 it loses the subject and carries no brand. The files are read at module level (as in the Next docs); read inside the function, the route was dynamic.
+- **OG font:** Plus Jakarta Sans 800, a 15 KB static `.woff` (Latin subset, OFL) from `@fontsource/plus-jakarta-sans@5.3.0` on jsDelivr, in `src/assets/`. Satori reads neither woff2 nor variable fonts, and `next/font` gives no font file. The eyebrow uses the `next/og` default font.
+- **`Logo` gets an optional `height`** (default 17, width keeps 54:17): Satori rasterizes CSS transforms, so a scaled 17px logo was blurry in the OG image.
+- **Favicon: an "l." monogram** made from the logo's own `l` and `.` paths, white on `ink`, rounded square. The "luma." wordmark is 54×17 and unreadable at 16–32px. Files as recommended by the Next docs: `app/icon.svg` (modern browsers), `app/favicon.ico` (16, 32, 48) and `app/apple-icon.png` (180, square: iOS rounds it). No web manifest (not a PWA). The PNG and ICO were made once from the SVG with ImageMagick (not a project dependency):
+
+  ```sh
+  convert -background none -density 1200 src/app/icon.svg -resize 32x32 PNG32:fav-32.png  # also 16 and 48
+  convert fav-16.png fav-32.png fav-48.png src/app/favicon.ico
+  # apple-icon: the same SVG with rx="0"
+  convert -density 1200 apple.svg -resize 180x180 -background '#171b2c' -flatten -strip PNG24:src/app/apple-icon.png
+  ```
+
+- **JSON-LD (`src/lib/structured-data.ts`)**, rendered in `page.tsx` as a native `<script type="application/ld+json">` with `<` escaped (Next JSON-LD guide): one `@graph` with `Organization` ("Luma Learning", URL, logo) and `WebSite` (name, URL, description, language, publisher). Valid on validator.schema.org (0 errors, 0 warnings). **Left out on purpose:** `AggregateRating` (the 4.9 rating is mock data, and self-serving ratings break Google's rules), `Course` (the courses do not exist), contact details and `sameAs` (no real profiles). For GEO, that is all: clear text, semantic HTML and true structured data. No `llms.txt` for one page.
+- **`robots.ts` and `sitemap.ts`:** allow everything and point to the sitemap, which has the home page only, without `lastModified` (a build date is not an edit date).
+- **Custom 404 (`app/not-found.tsx`):** the root not-found page also answers unmatched URLs, so every out-of-scope route (`/login`, `/signup`, `/courses/<slug>`, `/community`, `/careers`, `/journal`, `/help`, `/terms`, `/privacy`) shows it with status 404. Header, cream `main`, "Error 404" overline, an `h1` saying the page is not part of this challenge, the out-of-scope pages as a list, "Back to home" (primary button, `/`) and the Footer. Title "Page not found | Luma". Next adds `<meta name="robots" content="noindex">` to 404 responses by itself, so it is not set again. Texts in `src/data/not-found.ts`. No story or test: the page is static and its parts already have them.
+- **Section links are now `/#id`** (`sectionHref()` in `src/data/navigation.ts`), and the logo links `/#top`. A bare `#courses` on `/login` pointed to nothing. On the home page `/#id` only changes the fragment, so it still just scrolls (checked: no reload). The logo links stay plain `<a>` with an ESLint disable: the rule reads `/#top` as a page navigation, but it is a fragment link that scrolls to the top (HTML spec).

@@ -15,9 +15,11 @@ export function Header() {
       </a>
 
       <div className="mx-auto flex h-full max-w-page items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr]">
-        {/* "#top" scrolls to the top of the document (HTML spec). */}
+        {/* "/#top": the top of the home page (no "top" id, so the HTML spec scrolls to the top).
+            A plain <a> on purpose: on the home page it is a fragment link, not a page navigation. */}
+        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a
-          href="#top"
+          href="/#top"
           aria-label="Luma home"
           className="inline-flex justify-self-start rounded-sm text-ink"
         >

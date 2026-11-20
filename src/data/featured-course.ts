@@ -1,4 +1,4 @@
-import { type NavLink, sectionIds } from "./navigation";
+import { type NavLink, sectionHref, sectionIds } from "./navigation";
 
 export type FeaturedCourseContent = {
   /** Yellow label on the photo; also part of the section's accessible name. */
@@ -33,6 +33,6 @@ export const featuredCourseContent: FeaturedCourseContent = {
   },
   secondaryCta: {
     label: "Browse all courses",
-    href: `#${sectionIds.courses}`,
+    href: sectionHref(sectionIds.courses),
   },
 };

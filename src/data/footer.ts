@@ -1,4 +1,4 @@
-import { type NavLink, sectionIds } from "./navigation";
+import { type NavLink, sectionHref, sectionIds } from "./navigation";
 
 export type FooterColumn = {
   title: string;
@@ -11,24 +11,24 @@ export type FooterContent = {
   copyrightHolder: string;
 };
 
-// Anchors point to sections on this page; the other routes are out of scope
-// (404 until the custom not-found page, see docs/decisions.md).
+// Section links ("/#id") work from any route; the other routes are out of scope
+// (custom not-found page, see docs/decisions.md).
 export const footerContent: FooterContent = {
   tagline: "Practical learning for curious people.",
   columns: [
     {
       title: "Explore",
       links: [
-        { label: "Courses", href: `#${sectionIds.courses}` },
-        { label: "Categories", href: `#${sectionIds.courses}` },
-        { label: "Instructors", href: `#${sectionIds.community}` },
-        { label: "For Teams", href: `#${sectionIds.contact}` },
+        { label: "Courses", href: sectionHref(sectionIds.courses) },
+        { label: "Categories", href: sectionHref(sectionIds.courses) },
+        { label: "Instructors", href: sectionHref(sectionIds.community) },
+        { label: "For Teams", href: sectionHref(sectionIds.contact) },
       ],
     },
     {
       title: "Company",
       links: [
-        { label: "About", href: `#${sectionIds.howItWorks}` },
+        { label: "About", href: sectionHref(sectionIds.howItWorks) },
         { label: "Careers", href: "/careers" },
         { label: "Journal", href: "/journal" },
       ],
@@ -37,7 +37,7 @@ export const footerContent: FooterContent = {
       title: "Support",
       links: [
         { label: "Help Center", href: "/help" },
-        { label: "Contact", href: `#${sectionIds.contact}` },
+        { label: "Contact", href: sectionHref(sectionIds.contact) },
         { label: "Terms", href: "/terms" },
         { label: "Privacy", href: "/privacy" },
       ],

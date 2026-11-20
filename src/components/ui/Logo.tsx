@@ -4,19 +4,21 @@ type LogoProps = {
    * link, put the name on the link and leave the logo decorative.
    */
   label?: string;
+  /** Height in px; the width keeps the 54:17 ratio. Default 17 (Figma). */
+  height?: number;
   className?: string;
 };
 
 /** The "luma." wordmark. Takes the text color (`currentColor`). */
-export function Logo({ label, className }: LogoProps) {
+export function Logo({ label, height = 17, className }: LogoProps) {
   const a11y = label
     ? { role: "img", "aria-label": label }
     : { "aria-hidden": true };
 
   return (
     <svg
-      width="54"
-      height="17"
+      width={(height * 54) / 17}
+      height={height}
       viewBox="0 0 54 17"
       fill="currentColor"
       className={className}

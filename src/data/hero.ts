@@ -1,6 +1,6 @@
 import type { Avatar } from "@/components/ui/AvatarGroup";
 
-import { type NavLink, sectionIds } from "./navigation";
+import { type NavLink, sectionHref, sectionIds } from "./navigation";
 
 type Stat = {
   value: string;
@@ -25,10 +25,13 @@ export const heroContent: HeroContent = {
   title: "Build skills that actually move you forward.",
   description:
     "Practical courses taught by people who do the work every day. Learn design, technology, business and more — one focused lesson at a time.",
-  primaryCta: { label: "Explore courses", href: `#${sectionIds.courses}` },
+  primaryCta: {
+    label: "Explore courses",
+    href: sectionHref(sectionIds.courses),
+  },
   secondaryCta: {
     label: "See how it works",
-    href: `#${sectionIds.howItWorks}`,
+    href: sectionHref(sectionIds.howItWorks),
   },
   socialProof: { highlight: "Trusted by 24,000+", rest: "learners" },
   // Decorative: the social proof text next to them carries the meaning.
