@@ -27,7 +27,8 @@ Buzzvel Front-End technical challenge: build one responsive page (mobile, tablet
 - Code and comments in English.
 - Components in `src/components` with typed props. Mock data in `src/data`, typed.
 - Semantic HTML. Keyboard-accessible controls with visible focus.
-- `next/image` with descriptive `alt`. `next/font` for fonts.
+- `next/image` for images; `next/font` for fonts.
+- `alt`: descriptive for content images; empty (`alt=""`) for decorative images and for images whose meaning the adjacent text already gives (e.g. the avatars next to "Trusted by 24,000+ learners").
 - Design tokens in Tailwind `@theme`. Use tokens for repeated values. One-off values from Figma are fine as arbitrary values.
 - Mobile-first. Animations respect `prefers-reduced-motion`.
 - `"use client"` only where there is interaction.

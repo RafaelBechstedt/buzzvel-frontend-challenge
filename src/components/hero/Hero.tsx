@@ -4,8 +4,9 @@ import { AvatarGroup } from "@/components/ui/AvatarGroup";
 import { Button } from "@/components/ui/Button";
 import { heroContent } from "@/data/hero";
 
+// In forced colors the background and shadow are dropped: an outline keeps the badge edge.
 const badge =
-  "absolute flex w-max items-center rounded-xl bg-white px-4 py-3 text-body whitespace-nowrap text-ink shadow-badge";
+  "absolute flex w-max items-center rounded-xl bg-white px-4 py-3 text-body whitespace-nowrap text-ink shadow-badge forced-colors:outline";
 
 export function Hero() {
   const {
@@ -71,11 +72,13 @@ export function Hero() {
           />
 
           <div className="absolute inset-x-2 inset-y-0 overflow-hidden rounded-2xl bg-primary-light md:inset-x-0 md:rounded-3xl">
+            {/* LCP image: eager + high priority instead of `preload` (docs/decisions.md). */}
             <Image
               src={image.src}
               alt={image.alt}
               fill
-              preload
+              loading="eager"
+              fetchPriority="high"
               sizes="(min-width: 48rem) 500px, calc(100vw - 56px)"
               className="object-cover"
             />

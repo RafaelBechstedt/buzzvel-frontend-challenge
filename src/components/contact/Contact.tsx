@@ -30,35 +30,37 @@ export function Contact() {
             </p>
           </div>
 
+          {/* A `dl` may only hold `div > dt + dd`, so the icon sits inside the `dt`,
+              positioned against the card (docs/decisions.md). */}
           <dl className="flex flex-col gap-4">
             {cards.map((card) => (
               <div
                 key={card.title}
-                className="flex items-center gap-4 rounded-xl bg-cream p-4 lg:p-5"
+                className="relative flex min-h-18 flex-col justify-center gap-0.5 rounded-xl bg-cream py-4 pr-4 pl-18 text-body lg:min-h-20 lg:gap-1 lg:py-5 lg:pr-5 lg:pl-19"
               >
-                <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary-light">
-                  <Image
-                    src={card.icon.src}
-                    alt=""
-                    width={card.icon.width}
-                    height={card.icon.height}
-                  />
-                </div>
-                <div className="flex min-w-0 flex-col gap-0.5 text-body lg:gap-1">
-                  <dt className="text-ink">{card.title}</dt>
-                  <dd className="text-ink-tertiary">
-                    {card.href ? (
-                      <a
-                        href={card.href}
-                        className="break-words text-primary underline-offset-4 hover:underline"
-                      >
-                        {card.value}
-                      </a>
-                    ) : (
-                      card.value
-                    )}
-                  </dd>
-                </div>
+                <dt className="text-ink">
+                  <span className="absolute top-1/2 left-4 flex size-10 -translate-y-1/2 items-center justify-center rounded-lg bg-primary-light lg:left-5">
+                    <Image
+                      src={card.icon.src}
+                      alt=""
+                      width={card.icon.width}
+                      height={card.icon.height}
+                    />
+                  </span>
+                  {card.title}
+                </dt>
+                <dd className="min-w-0 text-ink-secondary">
+                  {card.href ? (
+                    <a
+                      href={card.href}
+                      className="break-words text-primary underline-offset-4 hover:underline"
+                    >
+                      {card.value}
+                    </a>
+                  ) : (
+                    card.value
+                  )}
+                </dd>
               </div>
             ))}
           </dl>
