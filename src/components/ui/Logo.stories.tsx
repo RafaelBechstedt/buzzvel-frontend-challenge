@@ -47,3 +47,11 @@ export const OnDark: Story = {
     ),
   ],
 };
+
+/** Larger sizes keep the ratio (the Open Graph image uses 51px). */
+export const Large: Story = {
+  args: {
+    label: "Luma",
+    height: 51,
+  },
+};
