@@ -73,7 +73,7 @@ export function HowItWorks() {
                 {/* Visual label only; the h3 carries "Step N" for screen readers. */}
                 <p
                   aria-hidden="true"
-                  className="mt-6 text-overline text-ink-tertiary uppercase"
+                  className="mt-6 text-overline text-ink-secondary uppercase"
                 >
                   Step {String(number).padStart(2, "0")}
                 </p>

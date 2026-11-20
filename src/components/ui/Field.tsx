@@ -16,7 +16,7 @@ export type TextareaFieldProps = FieldBaseProps &
 
 // The error state is not in the design (see docs/decisions.md).
 const control =
-  "w-full rounded-lg border border-line bg-cream px-4 text-body text-ink placeholder:text-ink-tertiary disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-error";
+  "w-full rounded-lg border border-line bg-cream px-4 text-body text-ink placeholder:text-ink-secondary disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-error";
 
 type ShellProps = FieldBaseProps & {
   id: string;
