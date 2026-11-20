@@ -3,6 +3,7 @@ import { Community } from "@/components/community/Community";
 import { Contact } from "@/components/contact/Contact";
 import { FeaturedCourse } from "@/components/featured-course/FeaturedCourse";
 import { FinalCta } from "@/components/final-cta/FinalCta";
+import { Footer } from "@/components/footer/Footer";
 import { Header } from "@/components/header/Header";
 import { Hero } from "@/components/hero/Hero";
 import { HowItWorks } from "@/components/how-it-works/HowItWorks";
@@ -22,6 +23,7 @@ export default function Home() {
         <Contact />
         <FinalCta />
       </main>
+      <Footer />
     </>
   );
 }

@@ -201,6 +201,29 @@ Built from the metadata, the screens and the typography map (no `get_design_cont
 - **At 1024–1279px the "B" icon is hidden:** with the right items moving in, nothing covers the text, but the B would sit about 10px from the "Explore all courses" button. The cube stays about 30px from the heading.
 - **Padding Y:** 60px, 80px from `md`, 100px from `lg` (not `xl` as in the other sections), so the decoration has the Figma section height. The section is 2–3px taller than Figma at 402 and 1280 (Figma text boxes are 1–2px taller than their frames).
 
+## Footer (2026-11-19)
+
+Built from the metadata, the screens and the typography map (no `get_design_context` for this section). Colors were sampled from the desktop screen.
+
+- **One `<nav aria-label="Footer">`** with three groups, each an `h2` (Explore, Company, Support; uppercase in CSS) and a `ul`. Three `nav`s would make four navigation landmarks on the page, and Terms and Privacy are not really navigation. The headings let screen reader users jump between columns.
+- **Logo link:** `#top` with `aria-label="Luma home"`, as in the Header; the `Logo` is white (`currentColor`).
+- **Link targets** (same rule as the other sections: an anchor when the section exists, otherwise an out-of-scope route with `prefetch={false}`, 404 until the custom not-found page):
+
+  | Link                                          | Target                                                | Why                                                           |
+  | --------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------- |
+  | Courses, Categories                           | `#courses`                                            | as in the Header; Categories is the `#courses` section itself |
+  | Instructors                                   | `#community`                                          | "The people" shows the teachers                               |
+  | For Teams, Contact                            | `#contact`                                            | as in the Header; the section exists                          |
+  | About                                         | `#how-it-works`                                       | as in the Header                                              |
+  | Careers, Journal, Help Center, Terms, Privacy | `/careers`, `/journal`, `/help`, `/terms`, `/privacy` | out of scope                                                  |
+
+- **Copyright year is computed:** an async function with `"use cache"` and `cacheLife("days")` returns `new Date().getFullYear()`. Next allows `new Date()` inside `use cache`, and a one-day cache stays in the static shell: the page is still prerendered (revalidated once a day), with no `Suspense` and no client JavaScript, and the year rolls over by itself. Because the Footer is an async Server Component, it has no Storybook story (it is not reusable and has no interaction, so no test either).
+- **Colors:** column titles `on-dark-secondary`, tagline and links `on-dark-tertiary`, logo `white`. The copyright is `on-dark-secondary` (#e7e7ec in the screen; the typography map says white). The 1px line is `ink-secondary` (#656770, same pixel as the screen). Link hover (not in the design) goes to `white`. Focus uses the white ring (`--focus-ring`), as in Featured course.
+- **Contrast on navy (#171b2c):** `on-dark-tertiary` 6.5:1, `on-dark-secondary` 13.7:1, white 17:1. All pass WCAG AA.
+- **Layout:** mobile has the brand on top, then Explore and Company side by side (161px each at 402) with Support below, and a centered copyright. **Tablet (768–1023px):** brand on top with the tagline on one line, the three columns side by side (208px each at 768), and the copyright on the left as on desktop; padding as on desktop. **From `lg`:** brand on the left (tagline 240px, two lines) and three 208px columns on the right. At 1024 the brand has 272px for its 240px tagline.
+- **Spacing:** padding 60/20px (mobile), 80/40px from `md`. The gap from the last link to the line is measured on the screens (36px mobile, 66px desktop): the Figma column frames are shorter than their content. The footer is 621.5px at 402 (Figma 622) and 394.5px at 1280 (Figma 395).
+- **At 1280 the columns start 16px left of Figma**, because of the 1120px container (see "Figma inconsistencies").
+
 ## Pending
 
 - **Favicon (metadata task):** replace the create-next-app `favicon.ico` with the luma logo.
